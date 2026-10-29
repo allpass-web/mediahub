@@ -1,0 +1,640 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<title>미디어허브 랜딩 샘플</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800;900&display=swap">
+<style>
+/* Layout: 실제 라이브 사이트(benews-pr-landing)의 섹션 순서·토큰을 그대로 옮긴 원페이지 샘플. 남색 섹션과 흰 섹션이 번갈아 나온다. 단일 테마 디자인. */
+:root{
+  --navy-900:#0B1B33; --navy-800:#12284A; --navy-700:#1E3A66;
+  --yellow:#FFC72C; --yellow-300:#FFD95C;
+  --ink:#111827; --paper:#FFFFFF; --muted:#F5F7FA; --line:#E3E7EE;
+  --chg:#FF4D6D;
+  --font:"Noto Sans KR","Pretendard",-apple-system,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --header-h:72px;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:var(--header-h)}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+body{background:var(--paper);color:var(--ink);font-family:var(--font);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+h1,h2,h3,p,li{word-break:keep-all;margin:0}
+h1,h2,h3{text-wrap:balance}
+a{color:inherit;text-decoration:none}
+button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
+:focus-visible{outline:3px solid var(--yellow);outline-offset:2px;border-radius:4px}
+.container{max-width:1200px;margin:0 auto;padding:0 20px}
+@media (min-width:640px){.container{padding:0 24px}}
+@media (min-width:1024px){.container{padding:0 32px}}
+.sec{padding-block:80px}
+@media (min-width:768px){.sec{padding-block:112px}}
+@media (min-width:1024px){.sec{padding-block:128px}}
+.navy{background:var(--navy-900);color:#fff}
+.navy2{background:var(--navy-800);color:#fff}
+.muted{background:var(--muted)}
+.label{font-size:14px;font-weight:700;letter-spacing:.025em;color:var(--navy-700);margin-bottom:12px}
+.navy .label,.navy2 .label{color:var(--yellow)}
+.h2{font-size:clamp(1.5rem,3.6vw,3rem);line-height:1.25;font-weight:800;color:var(--navy-900)}
+.navy .h2,.navy2 .h2{color:#fff}
+.lead{margin-top:24px;max-width:42rem;font-size:16px;line-height:1.7;color:rgba(17,24,39,.8)}
+@media (min-width:768px){.lead{font-size:18px}}
+.navy .lead,.navy2 .lead{color:rgba(255,255,255,.75)}
+.hl{position:relative;isolation:isolate;display:inline-block}
+.hl::before{content:"";position:absolute;left:0;right:0;bottom:.06em;height:.36em;background:var(--yellow);z-index:-1}
+.pill{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:52px;padding:0 28px;border-radius:999px;background:var(--yellow);color:var(--navy-900);font-weight:700;font-size:16px;transition:background .15s}
+.pill:hover{background:var(--yellow-300)}
+.card{border-radius:16px}
+.grid{display:grid;gap:20px}
+@media (min-width:768px){.g2{grid-template-columns:repeat(2,minmax(0,1fr))}.g3{grid-template-columns:repeat(3,minmax(0,1fr))}.g4{grid-template-columns:repeat(4,minmax(0,1fr))}}
+.ic{width:24px;height:24px;flex:none}
+
+/* 샘플 안내 바 + 수정 표시 */
+.notice{background:#111;color:#fff;font-size:13px}
+.notice .container{display:flex;flex-wrap:wrap;gap:8px 16px;align-items:center;justify-content:space-between;min-height:44px;padding-block:8px}
+.notice button{border:1px solid rgba(255,255,255,.4);border-radius:999px;padding:6px 14px;font-weight:700;font-size:13px}
+.notice button[aria-pressed="true"]{background:var(--chg);border-color:var(--chg)}
+.chg-tag{display:none;position:absolute;top:16px;left:16px;z-index:5;background:var(--chg);color:#fff;font-size:12px;font-weight:800;padding:4px 10px;border-radius:999px}
+body.show-chg [data-chg]{outline:3px dashed var(--chg);outline-offset:-10px}
+body.show-chg .chg-tag{display:inline-block}
+[data-chg]{position:relative}
+.tbd{display:inline-block;margin-top:6px;font-size:12px;font-weight:700;color:#B4233C;background:#FFE4E9;border-radius:6px;padding:2px 8px}
+.navy .tbd,.navy2 .tbd{color:#FFD0D8;background:rgba(255,77,109,.18)}
+
+/* 헤더 */
+header.site{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;height:var(--header-h);background:rgba(11,27,51,.96);backdrop-filter:blur(8px);color:#fff}
+header.site .container{height:100%;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.logo{display:flex;align-items:center;gap:10px;font-weight:900;font-size:20px;letter-spacing:-.02em}
+.logo i{display:inline-grid;place-items:center;width:32px;height:32px;border-radius:8px;background:var(--yellow);color:var(--navy-900);font-style:normal;font-size:14px;font-weight:900}
+.nav{display:none;align-items:center;gap:28px;font-size:14px;font-weight:700}
+.nav a:not(.pill):hover{color:var(--yellow)}
+.nav .pill{min-height:40px;padding:0 20px;font-size:14px}
+@media (min-width:1024px){.nav{display:flex}.burger{display:none}}
+.burger{padding:8px}
+.mnav{display:none;background:var(--navy-900);border-top:1px solid var(--navy-700)}
+.mnav.open{display:block}
+.mnav a{display:block;padding:14px 20px;border-bottom:1px solid var(--navy-700);color:#fff;font-weight:700}
+
+/* 히어로 */
+.hero{padding:96px 0 104px;background:radial-gradient(60% 50% at 50% 0,rgba(30,58,102,.55) 0,rgba(11,27,51,0) 70%),var(--navy-900);color:#fff}
+.badge{display:inline-block;border:1px solid var(--navy-700);border-radius:999px;padding:6px 16px;font-size:14px;font-weight:700;color:var(--yellow)}
+.hero h1{margin-top:28px;font-size:clamp(26px,5.6vw,60px);line-height:1.3;font-weight:900;letter-spacing:-.02em}
+.hero h1 .l{display:block}
+.search{display:flex;align-items:center;justify-content:space-between;width:min(100%,12em);height:1.9em;margin:.3em 0 .35em;padding:0 .7em 0 .9em;font-size:clamp(18px,3.1vw,33px);border:.1em solid var(--yellow);border-radius:999px;background:rgba(255,199,44,.1);color:var(--yellow)}
+.caret{display:inline-block;width:.09em;height:1em;border-radius:.05em;background:currentColor;animation:blink 1.06s step-end infinite}
+@keyframes blink{50%{opacity:0}}
+.search svg{width:.9em;height:.9em}
+.hero .sub{margin-top:40px;font-size:clamp(17px,2.4vw,26px);line-height:1.6;font-weight:700}
+.hero .sub em{font-style:normal;color:var(--yellow)}
+.hero .pill{margin-top:40px}
+.scroll{margin-top:48px;font-size:13px;color:rgba(255,255,255,.5)}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+
+/* why */
+.why-card{background:#fff;border:1px solid var(--line);padding:28px}
+.why-card .ic{width:44px;height:44px;padding:10px;border-radius:12px;background:var(--navy-900);color:var(--yellow)}
+.why-card h3{margin-top:20px;font-size:20px;font-weight:800;color:var(--navy-900)}
+.why-card p{margin-top:10px;font-size:15px;line-height:1.7;color:rgba(17,24,39,.75)}
+.why-card strong{color:var(--navy-900)}
+
+/* 3p 일러스트 */
+.chat{background:var(--muted);border-radius:16px;padding:32px;display:flex;flex-direction:column;gap:14px}
+.bub{max-width:80%;padding:14px 18px;border-radius:18px;font-size:15px;line-height:1.5;font-weight:500}
+.bub.me{align-self:flex-end;background:var(--navy-900);color:#fff;border-bottom-right-radius:4px}
+.bub.you{align-self:flex-start;background:#fff;border:1px solid var(--line);border-bottom-left-radius:4px}
+.bub small{display:block;font-size:12px;opacity:.6;margin-bottom:4px}
+.typing{align-self:flex-start;display:flex;gap:5px;padding:14px 18px;background:#fff;border:1px solid var(--line);border-radius:18px}
+.typing span{width:7px;height:7px;border-radius:50%;background:var(--navy-700);animation:dot 1.2s infinite}
+.typing span:nth-child(2){animation-delay:.2s}.typing span:nth-child(3){animation-delay:.4s}
+@keyframes dot{0%,60%,100%{opacity:.25}30%{opacity:1}}
+
+/* 4p 레이더 */
+.radar{max-width:440px;margin:40px auto 0}
+.radar svg{width:100%;height:auto;overflow:visible}
+
+/* 5p */
+.chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:28px}
+.chip{display:inline-flex;align-items:center;gap:8px;background:var(--yellow);color:var(--navy-900);border-radius:999px;padding:10px 20px;font-size:15px;font-weight:700}
+.step{background:var(--muted);border:1px solid var(--line);padding:32px}
+.step .no{font-size:14px;font-weight:800;color:var(--navy-700)}
+.step h3{margin-top:10px;font-size:20px;font-weight:800;color:var(--navy-900)}
+.step p{margin-top:8px;color:rgba(17,24,39,.75);line-height:1.6}
+
+/* 6p 숫자 */
+.stat{background:var(--navy-800);border:1px solid var(--navy-700);padding:28px 16px;text-align:center}
+.stat .v{font-size:30px;font-weight:800;color:var(--yellow);font-variant-numeric:tabular-nums}
+@media (min-width:768px){.stat .v{font-size:48px}}
+.stat .t{margin-top:12px;font-size:14px;font-weight:700}
+@media (min-width:768px){.stat .t{font-size:16px}}
+.stats{grid-template-columns:repeat(2,minmax(0,1fr))}
+@media (min-width:768px){.stats{grid-template-columns:repeat(4,minmax(0,1fr))}}
+.foot{margin-top:24px;text-align:center;font-size:13px;color:rgba(255,255,255,.55)}
+
+/* 7p 서비스 */
+.svc{display:flex;flex-direction:column;align-items:flex-start;text-align:left;background:#fff;border:2px solid var(--line);padding:28px;transition:border-color .15s, transform .15s;width:100%}
+.svc:hover{border-color:var(--yellow);transform:translateY(-2px)}
+.svc .ic{width:52px;height:52px;padding:13px;border-radius:14px;background:var(--navy-900);color:var(--yellow)}
+.svc h3{margin-top:20px;font-size:20px;font-weight:800;color:var(--navy-900)}
+.svc p{margin-top:10px;font-size:15px;line-height:1.65;color:rgba(17,24,39,.75)}
+.svc .go{margin-top:auto;padding-top:18px;font-size:14px;font-weight:700;color:var(--navy-700)}
+
+/* 신규 띠배너 */
+.recruit{background:var(--navy-900);padding-block:48px}
+@media (min-width:768px){.recruit{padding-block:64px}}
+.rb{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:20px;background:var(--navy-800);border:1px solid var(--navy-700);border-radius:16px;padding:28px;color:#fff;text-align:left;width:100%;transition:border-color .15s}
+.rb:hover{border-color:var(--yellow)}
+.rb .k{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:700;color:var(--yellow)}
+.rb strong{display:block;margin-top:8px;font-size:24px;font-weight:900}
+.rb .d{display:block;margin-top:8px;font-size:15px;line-height:1.6;color:rgba(255,255,255,.75)}
+.rb .cta{flex:none;display:inline-flex;align-items:center;min-height:44px;padding:0 20px;border-radius:999px;background:var(--yellow);color:var(--navy-900);font-weight:800;font-size:15px}
+.rb .txt{flex:1 1 260px;min-width:0}
+
+/* 8p 탭 */
+.tabs{display:flex;gap:8px;margin-top:36px;overflow-x:auto;scrollbar-width:none;padding-bottom:4px}
+.tabs::-webkit-scrollbar{display:none}
+.tab{flex:none;padding:10px 20px;border-radius:999px;border:1px solid rgba(11,27,51,.15);font-weight:700;font-size:15px;color:var(--navy-900);background:#fff}
+.tab[aria-selected="true"]{background:var(--navy-900);color:#fff;border-color:var(--navy-900)}
+.tab.new{border:2px solid var(--yellow)}
+.panel{margin-top:28px;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:var(--muted);display:grid}
+@media (min-width:768px){.panel{grid-template-columns:minmax(0,360px) 1fr}}
+.panel .img{aspect-ratio:16/10;background:linear-gradient(135deg,var(--navy-800),var(--navy-700));display:grid;place-items:center;color:rgba(255,255,255,.6);font-size:14px;font-weight:700}
+@media (min-width:768px){.panel .img{aspect-ratio:auto;min-height:260px}}
+.panel .body{padding:28px}
+@media (min-width:768px){.panel .body{padding:36px}}
+.panel .type{font-size:13px;font-weight:800;color:var(--navy-700)}
+.panel h3{margin-top:10px;font-size:22px;font-weight:800;color:var(--navy-900);line-height:1.4}
+.panel p{margin-top:12px;line-height:1.7;color:rgba(17,24,39,.75)}
+.panel a{display:inline-block;margin-top:18px;font-weight:700;color:var(--navy-900);text-decoration:underline;text-underline-offset:4px}
+
+/* 9p 리포트 */
+.report{display:grid;gap:48px;align-items:center}
+@media (min-width:1024px){.report{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.rep{background:#fff;border:1px solid var(--line);border-radius:16px;padding:28px;box-shadow:0 20px 25px -5px rgba(11,27,51,.08)}
+.rep .hd{display:flex;justify-content:space-between;align-items:center;font-weight:800;color:var(--navy-900)}
+.rep .hd span{font-size:12px;font-weight:700;color:rgba(17,24,39,.5)}
+.bar{margin-top:20px}
+.bar .row{display:flex;justify-content:space-between;font-size:14px;font-weight:700;color:var(--navy-900)}
+.bar .trk{margin-top:8px;height:10px;border-radius:999px;background:var(--muted);overflow:hidden}
+.bar .fill{height:100%;border-radius:999px;background:var(--yellow)}
+.rep .note{margin-top:20px;font-size:12px;line-height:1.6;color:rgba(17,24,39,.55)}
+
+/* 10p 문의 */
+.form{margin-top:48px;display:grid;gap:40px}
+.step-h{display:flex;align-items:baseline;gap:12px;margin-bottom:20px}
+.step-h b{font-size:14px;font-weight:800;color:var(--yellow)}
+.step-h h3{font-size:20px;font-weight:800}
+.step-h p{margin-top:4px;font-size:14px;color:rgba(255,255,255,.6)}
+.fields{display:grid;gap:16px}
+@media (min-width:640px){.fields{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.fld label{display:block;font-size:14px;font-weight:700;margin-bottom:8px}
+.fld input,.fld textarea{width:100%;border:2px solid var(--navy-700);border-radius:16px;background:var(--navy-800);color:#fff;font:inherit;font-size:15px;padding:12px 16px}
+.fld input::placeholder,.fld textarea::placeholder{color:rgba(255,255,255,.35)}
+.fld input:focus,.fld textarea:focus{outline:none;border-color:var(--yellow)}
+.opts{display:grid;gap:10px}
+@media (min-width:640px){.opts{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (min-width:1024px){.opts{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.opt{display:flex;align-items:center;gap:10px;border:2px solid var(--navy-700);border-radius:16px;background:var(--navy-800);padding:14px 16px;font-weight:700;cursor:pointer;transition:border-color .15s}
+.opt:has(input:checked){border-color:var(--yellow)}
+.opt input{width:18px;height:18px;accent-color:var(--yellow);margin:0}
+.opt.flash{animation:flash .9s ease 2}
+@keyframes flash{50%{border-color:var(--yellow);box-shadow:0 0 0 4px rgba(255,199,44,.35)}}
+.radios{display:flex;flex-wrap:wrap;gap:10px}
+.agree{display:flex;align-items:center;gap:10px;font-size:15px}
+.agree input{width:18px;height:18px;accent-color:var(--yellow)}
+.submit{width:100%;justify-content:center}
+@media (min-width:640px){.submit{width:auto}}
+.ok{display:none;margin-top:16px;font-weight:700;color:var(--yellow)}
+
+/* 푸터 + 고정바 */
+footer{background:var(--navy-900);border-top:1px solid var(--navy-700);color:rgba(255,255,255,.7);padding:56px 0 120px;font-size:14px;line-height:1.8}
+footer .links{display:flex;flex-wrap:wrap;gap:8px 20px;margin:16px 0;color:#fff;font-weight:700}
+footer dl{display:flex;flex-wrap:wrap;gap:4px 20px;margin:0}
+footer dt{display:inline;color:rgba(255,255,255,.45)}
+footer dd{display:inline;margin:0 0 0 6px}
+.fixbar{position:fixed;left:0;right:0;bottom:0;z-index:60;background:var(--yellow);color:var(--navy-900);padding-bottom:env(safe-area-inset-bottom,0px)}
+.fixbar .container{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:60px}
+.fixbar .t{font-weight:800;font-size:15px}
+.fixbar .r{display:flex;align-items:center;gap:10px}
+.fixbar .tel{font-weight:900;font-size:17px;font-variant-numeric:tabular-nums}
+.fixbar .btn{min-height:40px;padding:0 18px;border-radius:999px;background:var(--navy-900);color:#fff;font-weight:700;font-size:14px;display:inline-flex;align-items:center}
+@media (max-width:639px){.fixbar .t{display:none}.fixbar .container{justify-content:center}}
+</style>
+</head>
+<body style="margin:0">
+
+<div class="notice">
+  <div class="container">
+    <span><strong>샘플 페이지</strong> · 10/29 내부 수정사항 반영 · 실제 사이트 디자인 기준 (사진·폰트는 샘플용)</span>
+    <button type="button" id="chgToggle" aria-pressed="false">수정된 부분 표시</button>
+  </div>
+</div>
+
+<header class="site">
+  <div class="container">
+    <a class="logo" href="#importance"><i>MH</i>미디어허브</a>
+    <nav class="nav" aria-label="주요 메뉴">
+      <a href="#importance">홍보의 중요성</a>
+      <a href="#why">왜 미디어허브인가요?</a>
+      <a href="#articles">기사 유형 및 예시</a>
+      <a href="#contact">상담 문의하기</a>
+      <a class="pill" href="#contact">무료 상담 신청하기</a>
+    </nav>
+    <button class="burger" type="button" aria-label="메뉴 열기" aria-expanded="false" aria-controls="mnav" id="burger">
+      <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+    </button>
+  </div>
+  <nav class="mnav" id="mnav" aria-label="모바일 메뉴">
+    <a href="#importance">홍보의 중요성</a><a href="#why">왜 미디어허브인가요?</a><a href="#articles">기사 유형 및 예시</a><a href="#contact">상담 문의하기</a>
+  </nav>
+</header>
+
+<main>
+<!-- 1p 히어로 -->
+<section class="hero" id="importance">
+  <div class="container">
+    <span class="badge">홍보의 중요성</span>
+    <h1>
+      <span class="sr-only">우리 브랜드를 검색하면, 뭐가 나오나요?</span>
+      <span aria-hidden="true">
+        <span class="l">우리 브랜드를</span>
+        <span class="search"><span class="caret"></span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M20 20l-4.6-4.6"/></svg></span>
+        <span class="l">검색하면, 뭐가 나오나요?</span>
+      </span>
+    </h1>
+    <p class="sub">언론사가 직접 쓴 기사를<br><em>250여 개 제휴 언론사</em>에 동시 송출합니다.</p>
+    <a class="pill" href="#contact">무료 상담 신청하기</a>
+    <p class="scroll">⌄ 아래로 스크롤</p>
+  </div>
+</section>
+
+<!-- 2p 왜 미디어허브 (수정) -->
+<section class="sec muted" id="why" data-chg>
+  <span class="chg-tag">2p 수정</span>
+  <div class="container">
+    <p class="label">Why MEDIAHUB</p>
+    <h2 class="h2">대행사가 아닙니다. <span class="hl">언론사입니다.</span></h2>
+    <p class="lead">미디어허브는 인터넷언론사를 직접 운영합니다.<br>전문기자가 전문성 있는 기사를 쓰고, 결과 보고서까지 원스톱으로 제공합니다.</p>
+    <div class="grid g3" style="margin-top:48px">
+      <div class="card why-card">
+        <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"/><path d="M18 14h-8M15 18h-5M10 6h8v4h-8z"/></svg>
+        <h3>자체 언론사 직접 운영</h3>
+        <p><strong>브랜드경제신문·대한민국소비자신문</strong>을 직접 운영합니다. 대행사를 거치지 않고 언론사가 직접 기사를 작성하고 발행합니다.</p>
+      </div>
+      <div class="card why-card">
+        <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20M12 2a15 15 0 0 0 0 20"/></svg>
+        <h3>포털 노출 &amp; 제휴 매체 송출</h3>
+        <p><strong>250여 개 제휴 언론사</strong>로 브랜드 소식을 넓게 알립니다.</p>
+      </div>
+      <div class="card why-card">
+        <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M8 17v-3M12 17v-6M16 17v-4"/></svg>
+        <h3>결과 보고서까지 원스톱</h3>
+        <p>기업 분석, 기사 기획, 작성, 송출, 결과 보고서까지 한 번에 진행합니다.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 3p 응답·전문성 (수정) -->
+<section class="sec" data-chg>
+  <span class="chg-tag">3p 수정</span>
+  <div class="container">
+    <div class="grid g2" style="gap:48px;align-items:center">
+      <div>
+        <p class="label">홍보 대행의 가장 큰 불만</p>
+        <h2 class="h2" style="font-size:clamp(1.75rem,5vw,3.5rem);line-height:1.25"><span class="hl">'답이 늦다'</span> <span class="hl">'전문성이 없다'</span><br>걱정 마세요.</h2>
+        <p class="lead">전문기자가 1:1 전담으로 언론홍보를 책임지겠습니다.</p>
+      </div>
+      <div class="chat" aria-hidden="true">
+        <div class="bub you"><small>고객사</small>신제품 출시 기사, 이번 주 안에 가능할까요?</div>
+        <div class="bub me"><small>전담기자 · 미디어허브</small>네, 오늘 자료 받으면 내일 오전에 초안 드리겠습니다.</div>
+        <div class="bub you"><small>고객사</small>업계 용어가 많은데 괜찮을까요?</div>
+        <div class="bub me"><small>전담기자 · 미디어허브</small>해당 업종 기사 경험이 있는 기자가 직접 씁니다.</div>
+        <div class="typing"><span></span><span></span><span></span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 4p 브랜드 분석 -->
+<section class="sec navy2">
+  <div class="container" style="text-align:center">
+    <p class="label">단순 송출? NO!</p>
+    <h2 class="h2">브랜드 분석부터 기획까지,<br>우리 회사 홍보팀처럼</h2>
+    <p class="lead" style="margin-inline:auto">시장과 경쟁사를 살피고 우리 회사만의 강점과 키워드를 찾아 맞는 기사 방향을 제안합니다.</p>
+    <div class="radar">
+      <svg viewBox="-170 -150 340 300" role="img" aria-label="브랜드 기획을 중심으로 자사 강점, 경쟁사 분석, 트렌드 분석, 핵심 타겟, 키워드 분석">
+        <g fill="none" stroke="#1E3A66" stroke-width="1.5">
+          <polygon points="0,-110 104.6,-34 64.7,89 -64.7,89 -104.6,-34"/>
+          <polygon points="0,-73 69.7,-22.7 43.1,59.3 -43.1,59.3 -69.7,-22.7"/>
+          <polygon points="0,-37 34.9,-11.3 21.6,29.7 -21.6,29.7 -34.9,-11.3"/>
+        </g>
+        <polygon points="0,-95 90,-29 52,72 -58,80 -86,-28" fill="rgba(255,199,44,.25)" stroke="#FFC72C" stroke-width="2.5"/>
+        <circle r="34" fill="#FFC72C"/>
+        <text y="-3" text-anchor="middle" font-size="13" font-weight="800" fill="#0B1B33">브랜드</text>
+        <text y="13" text-anchor="middle" font-size="13" font-weight="800" fill="#0B1B33">기획</text>
+        <g font-size="14" font-weight="700" fill="#FFFFFF" text-anchor="middle">
+          <text x="0" y="-122">자사 강점</text>
+          <text x="140" y="-30">경쟁사 분석</text>
+          <text x="84" y="112">트렌드 분석</text>
+          <text x="-84" y="112">핵심 타겟</text>
+          <text x="-140" y="-30">키워드 분석</text>
+        </g>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- 5p 기사 작성 -->
+<section class="sec">
+  <div class="container">
+    <p class="label">한 건이라도, 전문가에게</p>
+    <h2 class="h2">기사 작성, 어렵지 않습니다</h2>
+    <p class="lead">키워드, 사진, 간단한 회사 소개만 보내 주세요. 전문 기자가 업종에 맞춰 기사 초안을 작성해 드립니다.</p>
+    <div class="chips">
+      <span class="chip"><svg class="ic" style="width:18px;height:18px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>자료 전달 후 당일 송출</span>
+      <span class="chip"><svg class="ic" style="width:18px;height:18px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="8" cy="8" r="6"/><path d="M18.09 10.37A6 6 0 1 1 10.34 18M7 6h1v4M16.71 13.88l.7.71-2.82 2.82"/></svg>프리랜서 기자가 되면 송출비용 0원</span>
+    </div>
+    <ol class="grid g3" style="margin-top:56px;padding:0;list-style:none">
+      <li class="card step"><span class="no">01</span><h3>자료 전달</h3><p>키워드 · 사진 · 회사 소개만 보내 주세요.</p></li>
+      <li class="card step"><span class="no">02</span><h3>기사 작성 · 검수</h3><p>전문 기자가 초안을 쓰고 함께 확인합니다.</p></li>
+      <li class="card step"><span class="no">03</span><h3>송출 · 리포트</h3><p>발행 후 노출 결과를 리포트로 드립니다.</p></li>
+    </ol>
+  </div>
+</section>
+
+<!-- 6p 숫자 (수정) -->
+<section class="sec navy" data-chg>
+  <span class="chg-tag">6p 수정</span>
+  <div class="container" style="text-align:center">
+    <p class="label">WHY CHOOSE US</p>
+    <h2 class="h2">숫자로 증명하는 언론홍보</h2>
+    <p class="lead" style="margin-inline:auto">전문기자 1:1 전담으로 고객이 다시 찾는 언론홍보를 만듭니다.</p>
+    <ul class="grid stats" style="margin-top:56px;padding:0;list-style:none;gap:16px">
+      <li class="card stat"><p class="v"><span data-count="98">98</span>%</p><p class="t">고객만족도</p></li>
+      <li class="card stat"><p class="v"><span data-count="97">97</span>%</p><p class="t">재계약률</p></li>
+      <li class="card stat"><p class="v">1:1</p><p class="t">전담기자 배정</p></li>
+      <li class="card stat"><p class="v"><span data-count="24">24</span>시간</p><p class="t">원고 확정 후 당일 기사 송출</p></li>
+    </ul>
+    <p class="foot">* 고객만족도·재계약률 집계 기준 표기 자리 <span class="tbd">근거 확인 중 · 확정 전 비공개</span></p>
+  </div>
+</section>
+
+<!-- 7p Our Service (수정) -->
+<section class="sec muted" id="service" data-chg>
+  <span class="chg-tag">7p 수정</span>
+  <div class="container">
+    <div style="text-align:center">
+      <p class="label">상품 안내</p>
+      <h2 class="h2">Our Service</h2>
+      <p class="lead" style="margin-inline:auto">카드를 누르면 아래 문의폼에 해당 상품이 자동으로 체크됩니다.</p>
+    </div>
+    <div class="grid g2 g4" style="margin-top:56px">
+      <button type="button" class="card svc" data-pick="홍보기사">
+        <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 11 18-5v12L3 14v-3z"/><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"/></svg>
+        <h3>홍보기사</h3>
+        <p>전문기자가 브랜드와 상품의 강점을 담은 홍보 기사를 작성해 송출합니다.</p>
+        <span class="tbd">설명 임시안</span>
+        <span class="go">문의하기 →</span>
+      </button>
+      <button type="button" class="card svc" data-pick="지면기사">
+        <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"/><path d="M18 14h-8M15 18h-5M10 6h8v4h-8z"/></svg>
+        <h3>지면기사</h3>
+        <p>신문 지면에 브랜드 기사를 게재합니다.</p>
+        <span class="tbd">게재 매체 확인 중</span>
+        <span class="go">문의하기 →</span>
+      </button>
+      <button type="button" class="card svc" data-pick="보도자료 배포">
+        <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 2 11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>
+        <h3>보도자료 배포</h3>
+        <p>언론사가 직접 기사를 작성해 포털과 제휴 매체에 동시 송출합니다.</p>
+        <span class="go">문의하기 →</span>
+      </button>
+      <button type="button" class="card svc" data-pick="브랜드대상">
+        <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6M18 9h1.5a2.5 2.5 0 0 0 0-5H18M4 22h16M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg>
+        <h3>브랜드대상</h3>
+        <p>KBS N 브랜드 어워즈 등 브랜드대상 참여부터 수상 홍보까지 지원합니다.</p>
+        <span class="go">문의하기 →</span>
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- 신규 띠배너 -->
+<section class="recruit" data-chg aria-label="모집 안내">
+  <span class="chg-tag">신규 띠배너</span>
+  <div class="container">
+    <div class="grid g2">
+      <button type="button" class="rb" data-pick="프리랜서 기자모집">
+        <span class="txt">
+          <span class="k"><svg class="ic" style="width:16px;height:16px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="11" r="2"/><path d="M15 10h3M15 14h3M6 16c.5-1.2 1.6-2 3-2s2.5.8 3 2"/></svg>PRESS 기자증 발급</span>
+          <strong>프리랜서 기자모집</strong>
+          <span class="d">브랜드경제신문 기자로 등록하고 기자증(PRESS)을 받으세요.</span>
+        </span>
+        <span class="cta">지원 문의</span>
+      </button>
+      <button type="button" class="rb" data-pick="언론사 창간">
+        <span class="txt">
+          <span class="k"><svg class="ic" style="width:16px;height:16px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 21v-6h6v6"/></svg>홈페이지 구축부터 운영까지</span>
+          <strong>언론사 창간 모집</strong>
+          <span class="d">언론사 홈페이지 구축, 기사 송출, 기자단 관리까지 한 번에 지원합니다.</span>
+        </span>
+        <span class="cta">창간 문의</span>
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- 8p 기사 유형 (수정: 브랜드대상 탭) -->
+<section class="sec" id="articles" data-chg>
+  <span class="chg-tag">8p 수정 · 브랜드대상 탭 추가</span>
+  <div class="container">
+    <p class="label">Article Types</p>
+    <h2 class="h2">기사 유형 및 예시</h2>
+    <p class="lead">브랜드 소식의 성격에 맞는 기사 유형을 제안해 드립니다.</p>
+    <div class="tabs" role="tablist" aria-label="기사 유형" id="tabs"></div>
+    <div class="panel" role="tabpanel" id="panel" aria-live="polite">
+      <div class="img" id="pImg">기사 이미지</div>
+      <div class="body">
+        <span class="type" id="pType"></span>
+        <h3 id="pTitle"></h3>
+        <p id="pLead"></p>
+        <span class="tbd">실제 기사로 교체 예정 · 샘플 문구</span><br>
+        <a href="https://benews.co.kr" target="_blank" rel="noopener">benews.co.kr 기사 보기 →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 9p 결과 리포트 -->
+<section class="sec muted" id="report">
+  <div class="container report">
+    <div>
+      <h2 class="h2">보도로 끝나지 않습니다.<br>결과까지 리포트로</h2>
+      <p class="lead">기사 송출 후 노출 현황과 반응을 한눈에 볼 수 있도록 결과 리포트를 드립니다.</p>
+    </div>
+    <div class="rep">
+      <div class="hd">송출 결과 리포트 <span>예시 화면</span></div>
+      <div class="bar"><div class="row"><span>송출 성공률</span><span>100%</span></div><div class="trk"><div class="fill" style="width:100%"></div></div></div>
+      <div class="bar"><div class="row"><span>제목 일치율</span><span>100%</span></div><div class="trk"><div class="fill" style="width:100%"></div></div></div>
+      <div class="bar"><div class="row"><span>핵심문구 반영률</span><span>100%</span></div><div class="trk"><div class="fill" style="width:100%"></div></div></div>
+      <div class="bar"><div class="row"><span>포털 노출률</span><span>60%</span></div><div class="trk"><div class="fill" style="width:60%"></div></div></div>
+      <p class="note">2026년 9월 송출 5건 자동 점검 기준 · 포털 노출은 네이버·다음·네이트 기준이며 구글은 자동 접근 차단으로 집계에서 제외했습니다.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 10p 문의 (수정: 관심 상품) -->
+<section class="sec navy" id="contact" data-chg>
+  <span class="chg-tag">10p 수정 · 관심 상품 7개</span>
+  <div class="container">
+    <p class="label">Contact</p>
+    <h2 class="h2">Contact Us</h2>
+    <p class="lead">맞춤 언론홍보 전략, 무료로 상담받으세요.</p>
+    <form class="form" id="form" novalidate>
+      <div>
+        <div class="step-h"><b>01</b><div><h3>기본정보</h3><p>연락을 드릴 수 있도록 담당자 정보를 남겨 주세요.</p></div></div>
+        <div class="fields">
+          <div class="fld"><label for="f-company">회사명 *</label><input id="f-company" placeholder="예) 미디어허브"></div>
+          <div class="fld"><label for="f-name">담당자명 *</label><input id="f-name" placeholder="예) 홍길동"></div>
+          <div class="fld"><label for="f-phone">연락처 *</label><input id="f-phone" type="tel" placeholder="예) 010-1234-5678"></div>
+          <div class="fld"><label for="f-email">이메일</label><input id="f-email" type="email" placeholder="예) hello@company.com"></div>
+        </div>
+      </div>
+      <div>
+        <div class="step-h"><b>02</b><div><h3>문의 내용</h3><p>관심 있는 상품과 궁금한 점을 알려 주세요.</p></div></div>
+        <fieldset style="border:0;padding:0;margin:0">
+          <legend style="font-weight:700;margin-bottom:12px">관심 상품 <span style="font-weight:500;color:rgba(255,255,255,.5)">복수 선택 가능</span></legend>
+          <div class="opts" id="opts"></div>
+        </fieldset>
+        <div class="fld" style="margin-top:16px"><label for="f-msg">문의 내용</label><textarea id="f-msg" rows="4" placeholder="홍보하고 싶은 내용을 자유롭게 적어 주세요."></textarea></div>
+      </div>
+      <div>
+        <div class="step-h"><b>03</b><div><h3>방문 경로</h3><p>어떻게 방문하셨는지 알려 주시면 상담에 도움이 됩니다.</p></div></div>
+        <fieldset style="border:0;padding:0;margin:0">
+          <legend class="sr-only">방문 경로</legend>
+          <div class="radios">
+            <label class="opt"><input type="radio" name="src" id="src-1">네이버</label>
+            <label class="opt"><input type="radio" name="src" id="src-2">구글</label>
+            <label class="opt"><input type="radio" name="src" id="src-3">지인 소개</label>
+            <label class="opt"><input type="radio" name="src" id="src-4">기타</label>
+          </div>
+        </fieldset>
+      </div>
+      <div>
+        <label class="agree"><input type="checkbox" id="f-agree">개인정보 수집·이용에 동의합니다. (필수)</label>
+        <div style="margin-top:24px"><button type="submit" class="pill submit">문의하기</button></div>
+        <p class="ok" id="ok" role="status">샘플 페이지라 실제로 접수되지는 않습니다.</p>
+      </div>
+    </form>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="container">
+    <a class="logo" href="#importance" style="color:#fff"><i>MH</i>미디어허브</a>
+    <div class="links"><a href="https://benews.co.kr" target="_blank" rel="noopener">브랜드경제신문 바로가기</a><span>개인정보처리방침</span></div>
+    <dl>
+      <div><dt>상호</dt><dd>(주)오픈엑스</dd></div>
+      <div><dt>대표</dt><dd>김미진</dd></div>
+      <div><dt>사업자등록번호</dt><dd>310-81-34293</dd></div>
+      <div><dt>주소</dt><dd>서울시 마포구 성암로 330, 8층 B동 808호</dd></div>
+      <div><dt>대표번호</dt><dd>010-4559-5049</dd></div>
+      <div><dt>이메일</dt><dd>allpass@kakao.com</dd></div>
+    </dl>
+    <p style="margin-top:16px;color:rgba(255,255,255,.45)">© 2026 미디어허브. All rights reserved.</p>
+  </div>
+</footer>
+
+<div class="fixbar">
+  <div class="container">
+    <span class="t">맞춤 언론홍보 전략, 무료 상담받기</span>
+    <span class="r"><span class="tel">010-4559-5049</span><a class="btn" href="#contact">상담 신청</a></span>
+  </div>
+</div>
+
+<script>
+(function(){
+  // 수정 부분 표시 토글
+  var tg=document.getElementById('chgToggle');
+  tg.addEventListener('click',function(){
+    var on=document.body.classList.toggle('show-chg');
+    tg.setAttribute('aria-pressed',on?'true':'false');
+    tg.textContent=on?'수정 표시 끄기':'수정된 부분 표시';
+  });
+
+  // 모바일 메뉴
+  var bg=document.getElementById('burger'),mn=document.getElementById('mnav');
+  bg.addEventListener('click',function(){var o=mn.classList.toggle('open');bg.setAttribute('aria-expanded',o?'true':'false');});
+  mn.addEventListener('click',function(e){if(e.target.tagName==='A'){mn.classList.remove('open');bg.setAttribute('aria-expanded','false');}});
+
+  // 관심 상품 (서비스 카드·띠배너와 같은 배열 공유)
+  var products=['홍보기사','지면기사','보도자료 배포','브랜드대상','프리랜서 기자모집','언론사 창간','기타'];
+  var opts=document.getElementById('opts');
+  products.forEach(function(p,i){
+    var l=document.createElement('label');l.className='opt';
+    var c=document.createElement('input');c.type='checkbox';c.id='prod-'+i;c.value=p;
+    l.appendChild(c);l.appendChild(document.createTextNode(p));opts.appendChild(l);
+  });
+  document.querySelectorAll('[data-pick]').forEach(function(b){
+    b.addEventListener('click',function(){
+      var v=b.getAttribute('data-pick');
+      var box=[].slice.call(opts.querySelectorAll('input')).filter(function(x){return x.value===v;})[0];
+      if(!box)return;
+      box.checked=true;
+      var lab=box.parentNode;lab.classList.remove('flash');void lab.offsetWidth;lab.classList.add('flash');
+      document.getElementById('contact').scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});
+    });
+  });
+
+  // 기사 유형 탭 (샘플 문구)
+  var types=[
+    ['보도자료','신제품 출시·협약·수상 등 회사 소식을 기사로','회사의 새로운 소식을 언론 보도 형식으로 정리해 송출합니다. 출시 일정, 핵심 기능, 대표 코멘트를 담아 검색 결과에 공식 정보로 남깁니다.'],
+    ['기획기사','업계 흐름 속에서 우리 브랜드의 위치를 보여주는 기사','시장 트렌드와 소비자 변화를 짚고, 그 안에서 브랜드가 내놓은 해법을 함께 소개합니다.'],
+    ['인터뷰','대표의 철학과 브랜드 이야기를 묻고 답하는 기사','전문기자가 대표 또는 핵심 인물을 인터뷰해 창업 계기, 경영 철학, 앞으로의 계획을 전합니다.'],
+    ['연재기사','같은 주제를 여러 회에 걸쳐 다루는 시리즈 기사','브랜드의 성장 과정이나 전문 분야 정보를 회차별로 나눠 꾸준히 검색 노출을 쌓습니다.'],
+    ['칼럼','대표·전문가 이름으로 싣는 전문 의견 기사','업계 전문가로서의 관점을 칼럼으로 발행해 전문성과 신뢰를 함께 보여줍니다.'],
+    ['라운드업','같은 주제의 여러 브랜드를 묶어 소개하는 기사','시즌·업종별 추천 브랜드 기사에 함께 소개되어 비교 검색에서 노출됩니다.'],
+    ['브랜드대상','브랜드대상 수상 소식을 공식 기사로','KBS N 브랜드 어워즈 등 수상 사실과 선정 이유를 기사로 남겨 영업·마케팅 자료로 활용합니다.']
+  ];
+  var tabs=document.getElementById('tabs');
+  function show(i){
+    [].forEach.call(tabs.children,function(t,j){t.setAttribute('aria-selected',j===i?'true':'false');t.tabIndex=j===i?0:-1;});
+    document.getElementById('pType').textContent=types[i][0];
+    document.getElementById('pTitle').textContent=types[i][1];
+    document.getElementById('pLead').textContent=types[i][2];
+    document.getElementById('pImg').textContent=types[i][0]+' 기사 이미지';
+  }
+  types.forEach(function(t,i){
+    var b=document.createElement('button');b.type='button';b.className='tab'+(i===6?' new':'');b.setAttribute('role','tab');b.id='tab-'+i;b.textContent=t[0];
+    b.addEventListener('click',function(){show(i);});
+    b.addEventListener('keydown',function(e){if(e.key==='ArrowRight'||e.key==='ArrowLeft'){var n=(i+(e.key==='ArrowRight'?1:types.length-1))%types.length;show(n);tabs.children[n].focus();}});
+    tabs.appendChild(b);
+  });
+  show(0);
+
+  // 숫자 카운트업 (최종값이 먼저 보이고, 화면에 들어오면 다시 셈)
+  var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(!reduce && 'IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(es){
+      es.forEach(function(en){
+        if(!en.isIntersecting)return; io.unobserve(en.target);
+        var el=en.target,to=+el.getAttribute('data-count'),t0=null;
+        function step(ts){if(!t0)t0=ts;var p=Math.min((ts-t0)/1200,1);el.textContent=Math.round(to*(1-Math.pow(1-p,3)));if(p<1)requestAnimationFrame(step);}
+        requestAnimationFrame(step);
+      });
+    },{threshold:.6});
+    document.querySelectorAll('[data-count]').forEach(function(el){io.observe(el);});
+  }
+
+  // 폼 (샘플)
+  document.getElementById('form').addEventListener('submit',function(e){e.preventDefault();document.getElementById('ok').style.display='block';});
+})();
+</script>
+
+</body>
+</html>
